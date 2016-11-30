@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="keywords" content="jquery,ui,easy,easyui,web">
+      <title>Divas</title>
+      <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/bootstrap/easyui.css">
+      <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
+      <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo/demo.css">
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+      <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+      <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-detailview.js"></script>
+      <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-groupview.js"></script>
+      <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.edatagrid.js"></script>
+      <link rel="stylesheet" type="text/css" href="styleClients.css">
+      <script type="text/javascript" src="dateformat.js"></script>   
+      <script type="text/javascript" src="clients.js"></script>
+      <script type="text/javascript" src="abonements.js"></script>
+      <script type="text/javascript" src="trainings.js"></script>
+      <script type="text/javascript" src="staff.js"></script>
+      <script type="text/javascript" src="timetable.js"></script>
+      <script type="text/javascript" src="registrations.js"></script>
+       
+       <style type="text/css">
+   BODY {
+    background: #fc0 url(https://pp.vk.me/c629414/v629414838/2175e/qk9IhAZqDM8.jpg) no-repeat; 
+    opacity:0.99;
+   }
+  </style>
+
+   </head>
+   <body>
+ <!--      <div id="signin" tyle="padding:10px 30px 20px 30px">
+           <form id="fmSignin" method="post" action="add_abonement_of_client.php" novalidate>
+             <table cellpadding="5">
+                                 <tr>
+                                    <td>Логин:</td>
+                                    <td><input class="easyui-textbox" type="text" name="login" data-options="required:true"></input></td>
+                                </tr>
+                                <tr>    
+                                    <td>Пароль:</td>
+                                    <td><input class="easyui-textbox" type="password" data-options="required:true"></input></td>
+                                </tr>
+    <tr><input type="submit" value="Авторизироваться" name="btn"></tr>
+            </table>
+            </form>
+       </div>-->
+      <div class="easyui-tabs" style="width:100%;height:600px" data-options="tools:'#tab-tools'">
+         <div title="Главная" style="padding:10px">
+            <div class="easyui-layout" style="width:100%;height:100%;">
+               <div data-options="region:'east'" style="width:30%;">
+                  <div class="easyui-accordion" data-options="fit:true,border:false">
+                     <div title="Оформить абонемент" style="padding:10px;">
+                        <div style="padding:10px 30px 20px 30px">
+                           <form id="fmNewAbonement" method="post" action="add_abonement_of_client.php" novalidate>
+                              <table cellpadding="5">
+                                 <tr>
+                                    <td>Фамилия:</td>
+                                    <td><input class="easyui-textbox" type="text" name="surname" data-options="required:true"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Имя:</td>
+                                    <td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Номер:</td>
+                                    <td><input class="easyui-numberbox" name="phone" ></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Отчество:</td>
+                                    <td><input class="easyui-textbox" name="middleName"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Абонемент:</td>
+                                    <td><input class="easyui-combobox comboAbonements" name="abonement" data-options="required:true,valueField:'idAbonement',textField:'nameAb',url:'get_comboabonements.php',panelHeight:'auto'"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Дата:</td>
+                                    <td><input class="easyui-datebox" name="date" data-options="required:true"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Оплатить:</td>
+                                    <td><input type="radio" name="ispaid" value="1" checked="true">Сейчас</input>
+                                       <input type="radio" name="ispaid" value="0" >Позже</input>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td>Сумма:</td>
+                                    <td><input class="easyui-numberbox" name="amount"></input></td>
+                                 </tr>
+                              </table>
+                           </form>
+                           <div style="text-align:center;padding:15px">
+                              <a href="javascript:void(0)" id="btnNewAbonement" class="easyui-linkbutton">Оформить</a>
+                              <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#fmNewAbonement').form('clear')">Отмена</a>
+                           </div>
+                        </div>
+                     </div>
+                     <div title="Записать на занятие" data-options="selected:true" style="padding:10px;">
+                        <div style="padding:10px 30px 20px 30px">
+                           <form id="fmNewRegistr" method="post"novalidate>
+                              <table cellpadding="5">
+                                 <tr>
+                                    <td>Фамилия:</td>
+                                    <td><input class="easyui-textbox" type="text" name="surname" data-options="required:true"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Имя:</td>
+                                    <td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Отчество:</td>
+                                    <td><input class="easyui-textbox" name="middleName"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Номер:</td>
+                                    <td><input class="easyui-numberbox" name="phone" ></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Абонемент:</td>
+                                    <td><input class="easyui-combobox comboAbonements" name="abonement" data-options="required:true,valueField:'idAbonement',textField:'nameAb',url:'get_comboabonements.php',panelHeight:'auto'"></input></td>
+                                 </tr>
+                                 <!--<tr>
+                                    <td>Время:</td>
+                                    <td><input class="easyui-combobox" id="comboTime" name="timeoftrain" data-options="required:true,valueField:'idTime',textField:'start',url:'get_combotime.php',panelHeight:'auto',formatter:function(row){
+                                    return row.start.slice(0,-3);}"></input></td>
+                                    </tr>-->
+                                 <tr>
+                                    <td>Дата:</td>
+                                    <td><input class="easyui-datebox" name="date" data-options="required:true"></input></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Тренировка:</td>
+                                    <td><input class="easyui-combobox" id="comboTrains" name="train" data-options="required:true,valueField:'idTimetable',textField:'train',url:'get_combotrains_for_reg.php',panelHeight:'auto'"></input></td>
+                                 </tr>
+                              </table>
+                           </form>
+                           <div style="text-align:center;padding:15px">
+                              <a href="javascript:void(0)" id="btnNewRegistr" class="easyui-linkbutton">Записать</a>
+                              <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#fmNewRegistr').form('clear')">Отмена</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div data-options="region:'center'">
+                  <!--  <div id="tbRegistration">
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('.table_reg_detail_train').edatagrid('destroyRow')">Destroy</a>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('.table_reg_detail_train').edatagrid('saveRow')">Save</a>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('.table_reg_detail_train').edatagrid('cancelRow')">Cancel</a>
+                     </div>-->
+                  <div id="tbGetSelections">
+                     <a href="#" class="easyui-linkbutton" id="getSelections" iconCls="icon-save" plain="true" >Отметить как посещенные</a>
+                     <a href="#" class="easyui-linkbutton" id="removeSelections" iconCls="icon-remove" plain="true">Отменить записи</a>
+                  </div>
+                  <table id="table_registration"></table>
+               </div>
+            </div>
+         </div>
+         <div title="Таблицы" style="padding:10px;">
+            <div id="tables" class="easyui-tabs" style="width:100%;height:500px" 
+               tabPosition="left" plain="true" pill="true" >
+               <div title="Клиенты" style="padding:10px">
+                  <table id="dg" style="width:'100%';height:'100%'"
+                     url="get_users.php" 
+                     pagination="true" 
+                     title="Наши клиенты" toolbar="#toolbar"
+                     singleSelect="true" fitColumns="true"
+                     striped="true" idField="idClient" >
+                     <thead>
+                        <tr>
+                           <th field="idClient" hidden="true" >id</th>
+                           <th field="surnameCl" width="100" sortable="true">Фамилия</th>
+                           <th field="nameCl" width="100" sortable="true">Имя</th>
+                           <th field="middleNameCl" width="100">Отчество</th>
+                           <th field="dateOfBirthCl" width="100">Дата рождения</th>
+                           <th field="genderCl" width="50" align="center">Пол</th>
+                           <th field="phoneCl" width="100">Телефон</th>
+                           <th field="emailCl" width="100">e-mail</th>
+                        </tr>
+                     </thead>
+                  </table>
+                  <div id="toolbar">
+                     <a href="#" class="easyui-linkbutton" 
+                        iconCls="icon-add" plain="true" id="btnNewClient">Добавить клиента</a>
+                     <a href="#" class="easyui-linkbutton" 
+                        iconCls="icon-edit" plain="true" id="btnEditClient">Изменить</a>
+                     <a href="#" class="easyui-linkbutton" 
+                        iconCls="icon-remove" plain="true" id="btnRemoveClient">Удалить</a></br>
+                  </div>
+                  <div id="dlg" class="easyui-dialog" 
+                     style="width:400px;height:350px;padding:10px 20px"
+                     closed="true" buttons="#dlg-buttons" >
+                     <div class="ftitle">Информация о клиенте</div>
+                     <form id="fm" class="dialForm" method="post" novalidate>
+                        <div class="fitem">
+                           <label>Фамилия:</label>
+                           <input name="surnameCl" class="easyui-validatebox" required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>Имя:</label>
+                           <input name="nameCl" class="easyui-validatebox" required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>Отчество:</label>
+                           <input name="middleNameCl" class="easyui-validatebox">
+                        </div>
+                        <div class="fitem">
+                           <label>Дата рождения:</label>
+                           <input name="dateOfBirthCl" class="easyui-datebox" required="true"></input>
+                        </div>
+                        <div class="fitem">
+                           <label>Пол:</label>
+                           <input name="genderCl" type="radio" value="м" 
+                              class="easyui-validatebox" >Мужской
+                           <input name="genderCl" type="radio" value="ж" 
+                              class="easyui-validatebox" checked>Женский
+                        </div>
+                        <div class="fitem">
+                           <label>Телефон:</label>
+                           <input name="phoneCl" class="easyui-numberbox" required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>e-mail:</label>
+                           <input name="emailCl" class="easyui-validatebox" validType="email">
+                        </div>
+                     </form>
+                  </div>
+                  <div id="dlg-buttons">
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-ok" id="btnSaveClient">Сохранить</a>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Отмена</a>
+                  </div>
+               </div>
+               <div title="Сотрудники" style="padding:10px">
+                  <table id="tableStaff" class="easyui-datagrid"></table>
+                  <div id="tbStaff">
+                     <a href="#" class="easyui-linkbutton" 
+                        iconCls="icon-add" plain="true" id="btnNewStaff">Добавить нового сотрудника</a>
+                     <a href="#" class="easyui-linkbutton" 
+                        iconCls="icon-edit" plain="true" id="btnEditStaff">Редактировать</a>
+                     <a href="#" class="easyui-linkbutton" 
+                        iconCls="icon-remove" plain="true" id="btnRemoveStaff">Уволить</a></br>
+                  </div>
+                  <div id="dlgStaff" class="easyui-dialog" 
+                     style="width:400px;height:400px;padding:10px 20px"
+                     closed="true" buttons="#dlg-buttons" >
+                     <div class="ftitle">Тренировка</div>
+                     <form id="fmStaff" class="dialForm" method="post" novalidate>
+                        <div class="fitem">
+                           <label>Фамилия:</label>
+                           <input name="surnameSt" class="easyui-validatebox" required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>Имя:</label>
+                           <input name="nameSt" class="easyui-validatebox" required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>Отчество:</label>
+                           <input name="middleNameSt" class="easyui-validatebox">
+                        </div>
+                        <div class="fitem">
+                           <label>Паспорт:</label>
+                           <input name="passportSt" class="easyui-numberbox" required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>Должность:</label>
+                           <input name="post" class="easyui-textbox" required="true" value="тренер">
+                        </div>
+                        <div class="fitem">
+                           <label>Дата рождения:</label>
+                           <input name="dateOfBirthSt" class="easyui-datebox" required="true"></input>
+                        </div>
+                        <div class="fitem">
+                           <label>Пол:</label>
+                           <input name="genderSt" type="radio" value="м" 
+                              class="easyui-validatebox" >Мужской
+                           <input name="genderSt" type="radio" value="ж" 
+                              class="easyui-validatebox" checked>Женский
+                        </div>
+                        <div class="fitem">
+                           <label>Телефон:</label>
+                           <input name="phoneSt" class="easyui-numberbox " required="true">
+                        </div>
+                        <div class="fitem">
+                           <label>e-mail:</label>
+                           <input name="emailSt" class="easyui-validatebox" validType="email">
+                        </div>
+                     </form>
+                  </div>
+                  <div id="dlg-buttons">
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-ok" id="btnSaveStaff">Сохранить</a>
+                     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlgStaff').dialog('close')">Отмена</a>
+                  </div>
+               </div>
+               <div title="Абонементы" style="padding:10px">
+                  <div class="easyui-layout" style="width:100%;height:100%;">
+                     <table id="typesAbonements" class="easyui-edatagrid" ></table>
+                     <div id="tbEdit">
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-add" 
+                           plain="true" 
+                           onclick="javascript:$('#typesAbonements').edatagrid('addRow')">Добавить</a>
+                        <a href="#" id="removeAbonement" class="easyui-linkbutton" iconCls="icon-remove"
+                           plain="true" >Удалить</a>
+                        <a href="#" id="saveAbonement" class="easyui-linkbutton" iconCls="icon-save" 
+                           plain="true">Сохранить</a>
+                        <a href="#" class="easyui-linkbutton" iconCls="icon-undo" 
+                           plain="true" 
+                           onclick="javascript:$('#typesAbonements').edatagrid('cancelRow')">Отменить</a>
+                     </div>
+                  </div>
+               </div>
+               <div title="Тренировки" style="padding:10px">
+                  <div class="easyui-layout" style="width:100%;height:100%;">
+                     <div data-options="region:'east',title:'Танцевальные стили',collapsible:false" style="width:400px;">
+                        <ul class="easyui-datalist" data-options="
+                           fit: true,
+                           lines: true,
+                           url: 'get_styles.php',
+                           method: 'get',
+                           valueField: 'idStyle',
+                           textField: 'nameSt',
+                           columns:[[
+                           {field:'nameSt',editor:'textbox'},
+                           {field:'aboutSt',editor:'textbox'}
+                           ]]
+                           ">
+                        </ul>
+                        <!--   <div id="panelStyles" class="easyui-panel" title="Basic Panel" 
+                           style="width:700px;height:500px;padding:10px;"
+                           href="get_styles1.php"></div>
+                           <table id="tableStyles" class="easyui-edatagrid" data-options="
+                                  url: 'get_styles1.php',
+                                  width:'100%',
+                                  height:'100%',
+                                  singleSelect:true, 
+                                  fitColumns:true,
+                                  collapsible:true,
+                                  columns:[[
+                                      {field:'idStyle',title:'id',width:60, hidden:true},
+                                      {field:'nameSt',title:'название',width:100,
+                                          editor:{type:'textbox',options:{required:true}}},
+                                      {field:'aboutSt',title:'Описание',width:80,
+                                          editor:{type:'textbox'}}
+                                  ]],
+                                  idField:'idStyle'">
+                           </table>-->
+                     </div>
+                     <div data-options="region:'center'" >
+                        <table id="tableTrains" class="easyui-datagrid">
+                        </table>
+                        <div id="tbTrains">
+                           <a href="#" class="easyui-linkbutton" 
+                              iconCls="icon-add" plain="true" id="btnNewTrain">Добавить новую</a>
+                           <a href="#" class="easyui-linkbutton" 
+                              iconCls="icon-edit" plain="true" id="btnEditTrain">Изменить</a>
+                           <a href="#" class="easyui-linkbutton" 
+                              iconCls="icon-remove" plain="true" id="btnRemoveTrain">Удалить</a></br>
+                        </div>
+                        <div id="dlgTrain" class="easyui-dialog" 
+                           style="width:400px;height:350px;padding:10px 20px"
+                           closed="true" buttons="#dlg-buttons" >
+                            
+                           <div class="ftitle">Тренировка</div>
+                           <form id="fmTrain" class="dialForm" method="post" novalidate>
+                               <table cellpadding="5">
+     
+                              <tr class="fitem">
+                                 <td>Тренер:</td>
+                                 <td><input name="coach" id="comboCoaches" class="easyui-combobox" 
+                                    data-options="valueField:'idStaff',textField:'coach',
+                                    url:'get_coaches.php', required:true,panelHeight:'auto'"></td>
+                              </tr>
+                              <tr class="fitem">
+                                 <td>Танцевальный стиль:</td>
+                                 <td><input name="style" id="comboStyles" class="easyui-combobox" 
+                                    data-options="valueField:'idStyle',textField:'nameSt',
+                                    url:'get_styles.php',required:true,panelHeight:'auto'"></td>
+                              </tr>
+                              <tr class="fitem">
+                                 <td>Продолжительность:</td>
+                                 <td><input name="durationMinutes" class="easyui-numberbox" required="true" value="60"></td>
+                              </tr>
+                              <tr class="fitem">
+                                 <td>Тип:</td>
+                                 <td><input name="typeOfTrain" class="easyui-combobox"
+                                    data-options="valueField:'type',textField:'type',
+                                    data:[{type:'групповые'},{type:'мини группа'},{type:'персональные'}],
+                                    panelHeight:'auto',required:true"></td>
+                              </tr>
+                            </table>
+                           </form>
+                        </div>
+                        <div id="dlg-buttons">
+                           <a href="#" class="easyui-linkbutton" iconCls="icon-ok" id="btnSaveTrain">Сохранить</a>
+                           <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlgTrain').dialog('close')">Отмена</a>
+                        </div>
+                     </div>
+                     <!-- <span>Фамилия:</span>  
+                        <input id="surname" style="line-height:22px;border:1px solid #ccc">  
+                        <span>Имя:</span>  
+                        <input id="name" style="line-height:22px;border:1px solid #ccc">  
+                        <a href="#" class="easyui-linkbutton" onclick="doSearch()">Поиск</a>-->
+                     <!--<input class="easyui-searchbox" data-options="prompt:'Фамилия',searcher:doSearch" style="width:300px"></input>-->
+                  </div>
+               </div>
+           <!--    <div title="Расписание" style="padding:10px">
+                    <table id="tableTimetable" class="easyui-datagrid" >
+                    </table>
+                    <div id="tbTimetable">
+                       <a href="#" class="easyui-linkbutton" 
+                          iconCls="icon-add" plain="true" id="btnNewTimetable">Добавить</a>
+                       <a href="#" class="easyui-linkbutton" 
+                          iconCls="icon-edit" plain="true" id="btnEditTimetable">Изменить</a>
+                       <a href="#" class="easyui-linkbutton" 
+                          iconCls="icon-remove" plain="true" id="btnRemoveTimetable">Удалить</a></br>
+                    </div>
+
+                </div>-->
+            </div>
+            
+         </div>
+         <div title="Расписание" style="padding:10px">
+           <div id="tables" style="width:100%;height:500px" >
+               <table id="tableTimetable" class="easyui-datagrid"></table></div>
+            <div id="tbTimetable">
+               <a href="#" class="easyui-linkbutton" 
+                  iconCls="icon-add" plain="true" id="btnNewTimetable">Добавить</a>
+              <!-- <a href="#" class="easyui-linkbutton" 
+                  iconCls="icon-edit" plain="true" id="btnEditTimetable">Изменить</a> -->
+               <a href="#" class="easyui-linkbutton"
+                  iconCls="icon-remove" plain="true" id="btnRemoveTimetable">Удалить</a>
+                <a href="#" class="easyui-linkbutton"
+                  iconCls="icon-remove" plain="true" id="btnPrintTimetable">Напечатать</a></br> 
+
+            </div>
+            <div id="dlgTimetable" class="easyui-dialog" 
+               style="width:350px;height:300px;padding:10px 20px"
+               closed="true" buttons="#dlg-buttons" >
+               <div class="ftitle">Тренировка</div>
+               <form id="fmTimetable" class="dialForm" method="post" novalidate>
+                 <table cellpadding="5">
+ 
+                  <tr class="fitem">
+                     <td>День недели:</td>
+                     <td><input name="dayOfWeek" id="comboDaysWeek" class="easyui-combobox" 
+                        data-options="valueField:'dayid',textField:'day',
+                        data:[{dayid:'Mon', day:'Понедельник'},{dayid:'Tue', day:'Вторник'},{dayid:'Wed', day:'Среда'},{dayid:'Thu', day:'Четверг'},{dayid:'Fri', day:'Пятница'},{dayid:'San', day:'Суббота'},{dayid:'Sun', day:'Воскресенье'}], required:true,panelHeight:'auto'"></td>
+                  </tr>
+                  <tr class="fitem">
+                     <td>Время:</td>
+                     <td><input name="time" id="comboTime" class="easyui-combobox" 
+                        data-options="valueField:'idTime',textField:'time',
+                        url:'comboTime.php',required:true,panelHeight:'auto'"></td>
+                  </tr> 
+                  <tr class="fitem">
+                     <td>Тренировка:</td>
+                     <td><input name="train" id="comboTrainCoach" class="easyui-combobox" 
+                        data-options="valueField:'idTrain',textField:'train',
+                        url:'comboTrainCoach.php',required:true,panelHeight:'auto'"></td>
+                  </tr>
+                  <tr>
+                     <td>Зал:</td>
+                     <td><input name="numberOfGum" class="easyui-combobox"
+                        data-options="valueField:'gum',textField:'gum',
+                        data:[{gum:'1'}],
+                                      panelHeight:'auto',required:true"></td>
+                  </tr>
+                </table>
+               </form>
+                </div>
+               <div id="dlg-buttons">
+                  <a href="#" class="easyui-linkbutton" iconCls="icon-ok" id="btnSaveTimetable">Сохранить</a>
+                  <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlgTimetable').dialog('close')">Отмена</a>
+               </div>
+            
+         </div>
+      </div>
+      </div>
+   </body>
+</html>
